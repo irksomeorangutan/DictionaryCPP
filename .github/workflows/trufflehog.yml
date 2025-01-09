@@ -1,0 +1,20 @@
+name: TruffleHog Secret Scanning
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  trufflehog-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run TruffleHog OSS
+        uses: trufflesecurity/trufflehog@v3.88.1
+        with:
+          scan-depth: 50 # Optional: Adjust scan depth (default is 50 commits)
+          fail-on-secrets: true # Optional: Fail the action if secrets are found
